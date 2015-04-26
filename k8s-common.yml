@@ -1,0 +1,32 @@
+node-ip:
+  image: imikushin/rancheros-k8s
+  labels:
+  - io.rancher.os.scope=system
+  volumes_from:
+  - all-volumes
+  command: node-ip.sh
+
+etcd-conf:
+  image: imikushin/rancheros-k8s
+  labels:
+  - io.rancher.os.scope=system
+  links:
+  - node-ip
+  volumes_from:
+  - all-volumes
+  environment:
+  - NODE_IP
+  command: etcd-conf.sh
+
+etcd:
+  image: quay.io/coreos/etcd:v2.0.10
+  labels:
+  - io.rancher.os.scope=system
+  restart: always
+  net: host
+  links:
+  - network
+  - etcd-conf
+  environment:
+  - ETCD_*
+
