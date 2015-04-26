@@ -1,0 +1,7 @@
+#cloud-config
+rancher:
+  environment:
+    ETCD_DISCOVERY: "${DISCOVERY_URL}"
+  services_include:
+  - k8s-common: true
+  - k8s-minion: true

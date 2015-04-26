@@ -1,0 +1,6 @@
+#!/bin/bash
+set -x -e
+
+cd $(dirname $0)/..
+
+curl -s "https://discovery.etcd.io/new?size=1" > ./.etcd-discovery-url
