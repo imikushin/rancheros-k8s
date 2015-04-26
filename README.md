@@ -41,3 +41,7 @@ Replace `${DISCOVERY_URL}` with a real **NEW** discovery URL for your cluster, e
 
 WARNING: In case you try to reuse this URL for another cluster, your `etcd` nodes will try to become 
 peers in another (possibly dead) cluster. 
+
+
+------------------
+Copyright (c) 2015 [Ivan Mikushin](https://github.com/imikushin)
