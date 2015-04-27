@@ -15,7 +15,8 @@ Enter User data. Use either:
 #cloud-config
 rancher:
   environment:
-    ETCD_DISCOVERY: "${DISCOVERY_URL}"
+    ETCD_DISCOVERY: <discovery_url>
+    FLANNEL_NETWORK: <flannel_network>
   services_include:
   - k8s-common: true
   - k8s-master: true
@@ -25,21 +26,25 @@ or:
 #cloud-config
 rancher:
   environment:
-    ETCD_DISCOVERY: "${DISCOVERY_URL}"
+    ETCD_DISCOVERY: <discovery_url>
+    FLANNEL_NETWORK: <flannel_network>
   services_include:
   - k8s-common: true
   - k8s-minion: true
 ```
 as a template.
 
-Replace `${DISCOVERY_URL}` with a real **NEW** discovery URL for your cluster, e.g. 
+Replace `<discovery_url>` with a real **NEW** discovery URL for your cluster, e.g. 
 `https://discovery.etcd.io/daa02a8fafee1519ea54795a14965d3c`
+
+Replace `<flannel_network>` with a CIDR range for flannel overlay network. This CIDR should not overlap 
+with any existing network you are using, e.g. `10.255.0.0/16` 
 
 **Every time** you recreate your cluster, **get a new etcd discovery URL** for use in your instances' cloud-config
     
     curl "https://discovery.etcd.io/new?size=1"
 
-WARNING: In case you try to reuse this URL for another cluster, your `etcd` nodes will try to become 
+**WARNING**: In case you try to reuse this URL for another cluster, your `etcd` nodes will try to become 
 peers in another (possibly dead) cluster. 
 
 

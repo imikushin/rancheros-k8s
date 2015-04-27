@@ -31,3 +31,15 @@ etcd:
   environment:
   - ETCD_*
 
+flannel-conf:
+  image: imikushin/rancheros-k8s
+  labels:
+  - io.rancher.os.scope=system
+  net: host
+  links:
+  - etcd
+  volumes_from:
+  - all-volumes
+  environment:
+  - FLANNEL_NETWORK
+  command: flannel-conf.sh

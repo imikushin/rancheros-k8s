@@ -1,7 +1,8 @@
 #cloud-config
 rancher:
   environment:
-    ETCD_DISCOVERY: "${DISCOVERY_URL}"
+    ETCD_DISCOVERY: <discovery_url>
+    FLANNEL_NETWORK: <flannel_network>
   services_include:
   - k8s-common: true
   - k8s-minion: true
