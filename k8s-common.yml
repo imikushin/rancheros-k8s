@@ -1,6 +1,7 @@
 node-ip:
   image: imikushin/rancheros-k8s
   labels:
+  - io.rancher.os.detach=false
   - io.rancher.os.scope=system
   net: host
   links:
@@ -12,6 +13,7 @@ node-ip:
 etcd-conf:
   image: imikushin/rancheros-k8s
   labels:
+  - io.rancher.os.detach=false
   - io.rancher.os.scope=system
   links:
   - node-ip
@@ -35,6 +37,7 @@ etcd:
 flannel-conf:
   image: imikushin/rancheros-k8s
   labels:
+  - io.rancher.os.detach=false
   - io.rancher.os.scope=system
   net: host
   links:
