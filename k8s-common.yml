@@ -3,6 +3,8 @@ node-ip:
   labels:
   - io.rancher.os.scope=system
   net: host
+  links:
+  - network
   volumes_from:
   - all-volumes
   command: node-ip.sh
@@ -26,7 +28,6 @@ etcd:
   restart: always
   net: host
   links:
-  - network
   - etcd-conf
   environment:
   - ETCD_*
@@ -43,3 +44,18 @@ flannel-conf:
   environment:
   - FLANNEL_NETWORK
   command: flannel-conf.sh
+
+flannel:
+  image: quay.io/coreos/flannel:0.4.0
+  labels:
+  - io.rancher.os.scope=system
+  privileged: true
+  restart: always
+  net: host
+  links:
+  - flannel-conf
+  volumes_from:
+  - system-volumes
+  environment:
+  - NODE_IP
+  command: bash -c 'exec /opt/bin/flanneld -logtostderr=true -iface=${NODE_IP}'
