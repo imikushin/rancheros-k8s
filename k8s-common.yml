@@ -2,6 +2,7 @@ node-ip:
   image: imikushin/rancheros-k8s
   labels:
   - io.rancher.os.scope=system
+  net: host
   volumes_from:
   - all-volumes
   command: node-ip.sh
