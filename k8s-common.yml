@@ -62,3 +62,28 @@ flannel:
   environment:
   - NODE_IP
   command: bash -c 'exec /opt/bin/flanneld -logtostderr=true -iface=${NODE_IP}'
+
+docker-conf:
+  image: imikushin/rancheros-k8s
+  labels:
+  - io.rancher.os.detach=false
+  - io.rancher.os.scope=system
+  net: host
+  links:
+  - flannel
+  volumes_from:
+  - all-volumes
+  command: docker-conf.sh
+
+userdocker:
+  image: userdocker
+  ipc: host
+  labels:
+  - io.rancher.os.scope=system
+  links:
+  - docker-conf
+  net: host
+  pid: host
+  privileged: true
+  volumes_from:
+  - all-volumes
