@@ -27,9 +27,9 @@ etcd-conf:
 
 etcd:
   image: quay.io/coreos/etcd:v2.0.10
+  restart: always
   labels:
   - io.rancher.os.scope=system
-  restart: always
   net: host
   links:
   - etcd-conf
@@ -52,10 +52,10 @@ flannel-conf:
 
 flannel:
   image: quay.io/coreos/flannel:0.4.0
+  restart: always
   labels:
   - io.rancher.os.scope=system
   privileged: true
-  restart: always
   net: host
   links:
   - flannel-conf
@@ -80,13 +80,13 @@ docker-conf:
 
 userdocker:
   image: userdocker
-  ipc: host
   labels:
   - io.rancher.os.scope=system
-  links:
-  - docker-conf
+  privileged: true
+  ipc: host
   net: host
   pid: host
-  privileged: true
+  links:
+  - docker-conf
   volumes_from:
   - all-volumes
