@@ -2,6 +2,7 @@ node-ip:
   image: imikushin/rancheros-k8s
   labels:
   - io.rancher.os.detach=false
+  - io.rancher.os.reloadconfig=true
   - io.rancher.os.scope=system
   net: host
   links:
@@ -14,6 +15,7 @@ etcd-conf:
   image: imikushin/rancheros-k8s
   labels:
   - io.rancher.os.detach=false
+  - io.rancher.os.reloadconfig=true
   - io.rancher.os.scope=system
   links:
   - node-ip
@@ -67,6 +69,7 @@ docker-conf:
   image: imikushin/rancheros-k8s
   labels:
   - io.rancher.os.detach=false
+  - io.rancher.os.reloadconfig=true
   - io.rancher.os.scope=system
   net: host
   links:
