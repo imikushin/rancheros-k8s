@@ -80,6 +80,7 @@ docker-conf:
 
 userdocker:
   image: userdocker
+  restart: always
   labels:
   - io.rancher.os.scope=system
   privileged: true
