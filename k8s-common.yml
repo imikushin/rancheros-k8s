@@ -23,67 +23,67 @@ etcd-conf:
   - NODE_IP
   command: etcd-conf.sh
 
-etcd:
-  image: quay.io/coreos/etcd:v2.0.10
-  labels:
-  - io.rancher.os.scope=system
-  restart: always
-  net: host
-  links:
-  - etcd-conf
-  environment:
-  - ETCD_*
-
-flannel-conf:
-  image: imikushin/rancheros-k8s
-  labels:
-  - io.rancher.os.detach=false
-  - io.rancher.os.scope=system
-  net: host
-  links:
-  - etcd
-  volumes_from:
-  - all-volumes
-  environment:
-  - FLANNEL_NETWORK
-  command: flannel-conf.sh
-
-flannel:
-  image: quay.io/coreos/flannel:0.4.0
-  labels:
-  - io.rancher.os.scope=system
-  privileged: true
-  restart: always
-  net: host
-  links:
-  - flannel-conf
-  volumes_from:
-  - system-volumes
-  environment:
-  - NODE_IP
-  command: bash -c 'exec /opt/bin/flanneld -logtostderr=true -iface=${NODE_IP}'
-
-docker-conf:
-  image: imikushin/rancheros-k8s
-  labels:
-  - io.rancher.os.detach=false
-  - io.rancher.os.scope=system
-  net: host
-  links:
-  - flannel
-  volumes_from:
-  - all-volumes
-  command: docker-conf.sh
-
-userdocker:
-  image: userdocker
-  ipc: host
-  labels:
-  - io.rancher.os.scope=system
-  links:
-  - docker-conf
-  net: host
-  pid: host
-  privileged: true
-  volumes_from:
-  - all-volumes
+#etcd:
+#  image: quay.io/coreos/etcd:v2.0.10
+#  labels:
+#  - io.rancher.os.scope=system
+#  restart: always
+#  net: host
+#  links:
+#  - etcd-conf
+#  environment:
+#  - ETCD_*
+#
+#flannel-conf:
+#  image: imikushin/rancheros-k8s
+#  labels:
+#  - io.rancher.os.detach=false
+#  - io.rancher.os.scope=system
+#  net: host
+#  links:
+#  - etcd
+#  volumes_from:
+#  - all-volumes
+#  environment:
+#  - FLANNEL_NETWORK
+#  command: flannel-conf.sh
+#
+#flannel:
+#  image: quay.io/coreos/flannel:0.4.0
+#  labels:
+#  - io.rancher.os.scope=system
+#  privileged: true
+#  restart: always
+#  net: host
+#  links:
+#  - flannel-conf
+#  volumes_from:
+#  - system-volumes
+#  environment:
+#  - NODE_IP
+#  command: bash -c 'exec /opt/bin/flanneld -logtostderr=true -iface=${NODE_IP}'
+#
+#docker-conf:
+#  image: imikushin/rancheros-k8s
+#  labels:
+#  - io.rancher.os.detach=false
+#  - io.rancher.os.scope=system
+#  net: host
+#  links:
+#  - flannel
+#  volumes_from:
+#  - all-volumes
+#  command: docker-conf.sh
+#
+#userdocker:
+#  image: userdocker
+#  ipc: host
+#  labels:
+#  - io.rancher.os.scope=system
+#  links:
+#  - docker-conf
+#  net: host
+#  pid: host
+#  privileged: true
+#  volumes_from:
+#  - all-volumes
