@@ -1,9 +1,8 @@
-FROM debian:jessie
+FROM gliderlabs/alpine:3.1
 
 # run on RancherOS with --volumes-from=all-volumes
 
-RUN apt-get update && apt-get -y dist-upgrade
-RUN apt-get install -y kmod bridge-utils iptables curl vim
+RUN apk --update add curl bash
 
 COPY . /
 
