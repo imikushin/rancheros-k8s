@@ -30,6 +30,7 @@ etcd:
   restart: always
   labels:
   - io.rancher.os.scope=system
+  - io.rancher.os.remove=false
   net: host
   links:
   - etcd-conf
