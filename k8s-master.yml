@@ -12,27 +12,60 @@ k8s-master-conf:
   - all-volumes
   environment:
   - NODE_IP
+  - K8S_MASTER_PORT
   command: k8s-master-conf.sh
 
-kube-master:
-  image: gcr.io/google_containers/hyperkube:v0.16.0
+kube-apiserver:
+  image: imikushin/rancheros-k8s
   labels:
   - io.rancher.os.scope=system
   net: host
   links:
   - k8s-master-conf
-  volumes:
-  - /var/run/docker.sock:/var/run/docker.sock
-  command: /hyperkube kubelet --api_servers=http://localhost:8080 --v=2 --address=0.0.0.0 --enable_server --hostname_override=127.0.0.1 --config=/etc/kubernetes/manifests-multi
+  volumes_from:
+  - system-volumes
+  environment:
+  - NODE_IP
+  - K8S_MASTER_PORT
+  - K8S_PORTAL_NET
+  command: kube-apiserver.sh
 
 kube-proxy:
-  image: gcr.io/google_containers/hyperkube:v0.16.0
+  image: imikushin/rancheros-k8s
   labels:
   - io.rancher.os.scope=system
   privileged: true
   net: host
   links:
-  - kube-master
-  volumes:
-  - /var/run/docker.sock:/var/run/docker.sock
-  command: /hyperkube proxy --master=http://127.0.0.1:8080 --v=2
+  - kube-apiserver
+  volumes_from:
+  - system-volumes
+  environment:
+  - K8S_MASTER_ENDPOINT
+  command: kube-proxy.sh
+
+kube-controller-manager:
+  image: imikushin/rancheros-k8s
+  labels:
+  - io.rancher.os.scope=system
+  net: host
+  links:
+  - kube-apiserver
+  volumes_from:
+  - system-volumes
+  environment:
+  - K8S_MASTER_ENDPOINT
+  command: kube-controller-manager.sh
+
+kube-scheduler:
+  image: imikushin/rancheros-k8s
+  labels:
+  - io.rancher.os.scope=system
+  net: host
+  links:
+  - kube-apiserver
+  volumes_from:
+  - system-volumes
+  environment:
+  - K8S_MASTER_ENDPOINT
+  command: kube-scheduler.sh
