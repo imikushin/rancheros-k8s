@@ -33,6 +33,8 @@ etcd:
   net: host
   links:
   - etcd-conf
+  volumes:
+  - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt
   environment:
   - ETCD_*
 
