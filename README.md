@@ -6,7 +6,7 @@ TODO: write something about it.
 
 We'll launch Kubernetes on RancherOS on Amazon EC2.
 
-Choose rancheros-v0.3.0-hvm-1 image.
+Choose rancheros-v0.3.1-hvm-1 image.
 
 Configure Instance Details -> Advanced Details 
 
@@ -17,9 +17,11 @@ rancher:
   environment:
     ETCD_DISCOVERY: <discovery_url>
     FLANNEL_NETWORK: <flannel_network>
+    K8S_MASTER_PORT: 8080
+    K8S_PORTAL_NET: 10.100.0.0/16
   services_include:
-  - k8s-common: true
-  - k8s-master: true
+  - https://raw.githubusercontent.com/imikushin/rancheros-k8s/master/k8s-common.yml: true
+  - https://raw.githubusercontent.com/imikushin/rancheros-k8s/master/k8s-master.yml: true
 ```
 or:
 ```yml
@@ -29,8 +31,8 @@ rancher:
     ETCD_DISCOVERY: <discovery_url>
     FLANNEL_NETWORK: <flannel_network>
   services_include:
-  - k8s-common: true
-  - k8s-minion: true
+  - https://raw.githubusercontent.com/imikushin/rancheros-k8s/master/k8s-common.yml: true
+  - https://raw.githubusercontent.com/imikushin/rancheros-k8s/master/k8s-minion.yml: true
 ```
 as a template.
 
