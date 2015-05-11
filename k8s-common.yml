@@ -78,8 +78,8 @@ docker-conf:
   - all-volumes
   command: docker-conf.sh
 
-userdocker:
-  image: userdocker
+docker:
+  image: docker
   restart: always
   labels:
   - io.rancher.os.scope=system
