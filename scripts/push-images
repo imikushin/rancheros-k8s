@@ -1,0 +1,11 @@
+#!/bin/bash
+set -x -e
+
+PREFIX=${PREFIX:-rancher}
+
+cd $(dirname $0)/..
+
+for i in src/docker/*; do
+  tag=`echo ${i} | awk 'sub(/^.+\/.+\//, "")'`
+  docker push ${PREFIX}/${tag}
+done

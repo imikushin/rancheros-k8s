@@ -1,0 +1,16 @@
+#!/bin/bash
+set -x -e
+
+PREFIX=${PREFIX:-rancher}
+
+cd $(dirname $0)/..
+BASE=$(pwd)
+
+./scripts/k8s-deps
+
+for i in src/docker/*; do
+  tag=`echo ${i} | awk 'sub(/^.+\/.+\//, "")'`
+  cd ${BASE}/${i}
+  echo Building ${tag}
+  docker build -t ${PREFIX}/${tag} .
+done

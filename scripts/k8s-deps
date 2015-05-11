@@ -1,0 +1,29 @@
+#!/bin/bash
+set -x -e
+
+k8s_v="v0.16.2"
+
+cd $(dirname $0)/..
+
+tmp_dir=src/docker/rancheros-k8s/tmp
+
+mkdir -p ${tmp_dir}
+
+if [[ ! -f ./${tmp_dir}/k8s/kubelet ]]; then
+  mkdir -p ${tmp_dir}/k8s
+  wget -N -P ${tmp_dir}/k8s \
+    https://storage.googleapis.com/kubernetes-release/release/${k8s_v}/bin/linux/amd64/kube-apiserver
+  wget -N -P ${tmp_dir}/k8s \
+    https://storage.googleapis.com/kubernetes-release/release/${k8s_v}/bin/linux/amd64/kube-controller-manager
+  wget -N -P ${tmp_dir}/k8s \
+    https://storage.googleapis.com/kubernetes-release/release/${k8s_v}/bin/linux/amd64/kube-scheduler
+  wget -N -P ${tmp_dir}/k8s \
+    https://storage.googleapis.com/kubernetes-release/release/${k8s_v}/bin/linux/amd64/kube-proxy
+  wget -N -P ${tmp_dir}/k8s \
+    https://storage.googleapis.com/kubernetes-release/release/${k8s_v}/bin/linux/amd64/kubelet
+  chmod +x ${tmp_dir}/k8s/kube-apiserver
+  chmod +x ${tmp_dir}/k8s/kube-controller-manager
+  chmod +x ${tmp_dir}/k8s/kube-scheduler
+  chmod +x ${tmp_dir}/k8s/kube-proxy
+  chmod +x ${tmp_dir}/k8s/kubelet
+fi
