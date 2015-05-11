@@ -12,8 +12,6 @@ mkdir -p ${tmp_dir}
 if [[ ! -f ./${tmp_dir}/k8s/kubelet ]]; then
   mkdir -p ${tmp_dir}/k8s
   wget -N -P ${tmp_dir}/k8s \
-    https://storage.googleapis.com/kubernetes-release/release/${k8s_v}/bin/linux/amd64/hyperkube
-  wget -N -P ${tmp_dir}/k8s \
     https://storage.googleapis.com/kubernetes-release/release/${k8s_v}/bin/linux/amd64/kube-apiserver
   wget -N -P ${tmp_dir}/k8s \
     https://storage.googleapis.com/kubernetes-release/release/${k8s_v}/bin/linux/amd64/kube-controller-manager
