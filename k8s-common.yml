@@ -73,6 +73,7 @@ docker-conf:
   - io.rancher.os.detach=false
   - io.rancher.os.reloadconfig=true
   - io.rancher.os.scope=system
+  privileged: true
   net: host
   links:
   - flannel
