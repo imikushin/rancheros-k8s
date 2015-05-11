@@ -1,8 +1,0 @@
-#cloud-config
-rancher:
-  environment:
-    ETCD_DISCOVERY: <discovery_url>
-    FLANNEL_NETWORK: <flannel_network>
-  services_include:
-  - k8s-common: true
-  - k8s-master: true
