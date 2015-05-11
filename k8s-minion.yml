@@ -16,7 +16,7 @@ k8s-minion-conf:
   command: k8s-minion-conf.sh
 
 kube-minion:
-  image: gcr.io/google_containers/hyperkube:v0.16.2
+  image: gcr.io/google_containers/hyperkube:v0.16.0
   labels:
   - io.rancher.os.scope=system
   net: host
@@ -30,7 +30,7 @@ kube-minion:
   command: /hyperkube kubelet --api_servers=${K8S_MASTER} --v=2 --address=0.0.0.0 --enable_server --hostname_override=${NODE_IP}
 
 kube-proxy:
-  image: gcr.io/google_containers/hyperkube:v0.16.2
+  image: gcr.io/google_containers/hyperkube:v0.16.0
   labels:
   - io.rancher.os.scope=system
   privileged: true

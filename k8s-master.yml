@@ -15,7 +15,7 @@ k8s-master-conf:
   command: k8s-master-conf.sh
 
 kube-master:
-  image: gcr.io/google_containers/hyperkube:v0.16.2
+  image: gcr.io/google_containers/hyperkube:v0.16.0
   labels:
   - io.rancher.os.scope=system
   net: host
@@ -26,7 +26,7 @@ kube-master:
   command: /hyperkube kubelet --api_servers=http://localhost:8080 --v=2 --address=0.0.0.0 --enable_server --hostname_override=127.0.0.1 --config=/etc/kubernetes/manifests-multi
 
 kube-proxy:
-  image: gcr.io/google_containers/hyperkube:v0.16.2
+  image: gcr.io/google_containers/hyperkube:v0.16.0
   labels:
   - io.rancher.os.scope=system
   privileged: true
