@@ -66,7 +66,7 @@ flannel:
   - system-volumes
   environment:
   - NODE_IP
-  command: /opt/bin/flanneld -logtostderr=true -iface=${NODE_IP}
+  command: sh -c 'exec /opt/bin/flanneld -logtostderr=true -iface=${NODE_IP}'
 
 docker-conf:
   image: imikushin/rancheros-k8s
